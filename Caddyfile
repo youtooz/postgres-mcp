@@ -1,0 +1,27 @@
+:{$PORT:8080} {
+    # Health endpoints without auth
+    handle /health {
+        respond "OK" 200
+    }
+    handle /healthz {
+        respond "OK" 200
+    }
+
+    @authorized {
+        header Authorization "Bearer {env.BEARER_TOKEN}"
+    }
+
+    handle @authorized {
+        reverse_proxy localhost:8080
+    }
+
+    handle {
+        header WWW-Authenticate "Bearer"
+        respond "Unauthorized" 401
+    }
+
+    log {
+        output stdout
+        format console
+    }
+}

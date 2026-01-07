@@ -1,0 +1,7 @@
+.git
+.github
+*.log
+tmp
+node_modules
+*.tmp
+*.swp
