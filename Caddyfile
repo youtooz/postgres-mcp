@@ -13,7 +13,8 @@
 
     handle @authorized {
         reverse_proxy localhost:8000 {
-            header_up Host {http.reverse_proxy.upstream.hostport}
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Host {host}
         }
     }
 
